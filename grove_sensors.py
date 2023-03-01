@@ -7,21 +7,6 @@ potentiometer = 0 # Connect the Grove Rotary Angle Sensor to analog port A0
 led = 5 # Connect the LED to digital port D5
 ultrasonic_ranger = 4 # Connect the Grove Ultrasonic Ranger to digital port D4
 
-
-
-#ultrasonic
-while True:
-    try:
-        # Read distance value from Ultrasonic
-        print(grovepi.ultrasonicRead(ultrasonic_ranger))
-
-    except Exception as e:
-        print ("Error:{}".format(e))
-    
-    time.sleep(0.1) # don't overload the i2c bus
-
-    
-
 grovepi.pinMode(potentiometer,"INPUT")
 grovepi.pinMode(led,"OUTPUT")
 time.sleep(1)
@@ -35,8 +20,19 @@ grove_vcc = 5
 # Full value of the rotary angle is 300 degrees, as per it's specs (0 to 300)
 full_angle = 300
 
+
+
+
+#ultrasonic
 while True:
     try:
+        # Read distance value from Ultrasonic
+        dist=grovepi.ultrasonicRead(ultrasonic_ranger)
+
+
+        time.sleep(0.1) # don't overload the i2c bus
+
+    
         # Read sensor value from potentiometer
         sensor_value = grovepi.analogRead(potentiometer)
 
@@ -53,15 +49,11 @@ while True:
         grovepi.analogWrite(led,brightness)
 
         print("sensor_value = %d voltage = %.2f degrees = %.1f brightness = %d" %(sensor_value, voltage, degrees, brightness))
-    except KeyboardInterrupt:
-        grovepi.analogWrite(led,0)
-        break
+ 
     except IOError:
-        print ("Error")
+        print ("Error angle")
+ 
         
-        
-        from grove_rgb_lcd import *
-
 setText("Hello world\nLCD test")
 setRGB(0,128,64)
 
