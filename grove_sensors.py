@@ -1,13 +1,15 @@
 import grovepi
 import time
+grovepi.set_bus("RPI_1") # set I2C to use the hardware bus
 
-# set I2C to use the hardware bus
-grovepi.set_bus("RPI_1")
 
-# Connect the Grove Ultrasonic Ranger to digital port D4
-# SIG,NC,VCC,GND
-ultrasonic_ranger = 4
+potentiometer = 0 # Connect the Grove Rotary Angle Sensor to analog port A0
+led = 5 # Connect the LED to digital port D5
+ultrasonic_ranger = 4 # Connect the Grove Ultrasonic Ranger to digital port D4
 
+
+
+#ultrasonic
 while True:
     try:
         # Read distance value from Ultrasonic
@@ -19,13 +21,6 @@ while True:
     time.sleep(0.1) # don't overload the i2c bus
 
     
-# Connect the Grove Rotary Angle Sensor to analog port A0
-# SIG,NC,VCC,GND
-potentiometer = 0
-
-# Connect the LED to digital port D5
-# SIG,NC,VCC,GND
-led = 5
 
 grovepi.pinMode(potentiometer,"INPUT")
 grovepi.pinMode(led,"OUTPUT")
