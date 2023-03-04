@@ -20,13 +20,13 @@ while True:
  try:  
   dist=grovepi.ultrasonicRead(ultrasonic_ranger) # Read distance value from Ultrasonic
   time.sleep(0.1) # don't overload the i2c bus 
-  # Read sensor value from potentiometer
-  sensor_value = (grovepi.analogRead(potentiometer)/2)
-  # print("sensor_value = %d voltage = %.2f degrees = %.1f brightness = %d" %(sensor_value, voltage, degrees, brightness))
-  if(dist >= sensor_value):
+ 
+  sensor_value = (grovepi.analogRead(potentiometer)/2) # Read sensor value from potentiometer and devides by two to fit range of ultrasonic
+
+  if(dist >= sensor_value): #if distance is higher or equal than the threshhold it prints threshhold and the distane (colour of background green)
    setText_norefresh("%d cm          \n%d cm" %(sensor_value,dist))
    setRGB(0,125,0)
-  elif(dist < sensor_value):
+  elif(dist < sensor_value):  #if distance is lower than the threshhold prints the threshhold then "OBJ PRES" and the distane (colour of background red)
    setText_norefresh("%d cm OBJ PRES\n%d cm" %(sensor_value,dist))
    setRGB(125,0,0)    
  except IOError:
